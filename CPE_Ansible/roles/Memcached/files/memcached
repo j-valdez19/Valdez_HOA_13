@@ -1,0 +1,7 @@
+MEMCACHED_PARAMS="-l 192.168.56.108"
+
+MEMCACHED_USER="memcached"
+
+MEMCACHED_GROUP="memcached"
+
+

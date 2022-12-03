@@ -1,0 +1,6 @@
+  - name: Restarting Mariadb service
+    service:
+      name: mysql
+      state: restarted
+      enabled: true
+

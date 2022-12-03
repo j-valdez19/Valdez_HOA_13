@@ -1,0 +1,7 @@
+  - name: Enabling OpenStack repository
+      repo: 'obs://Cloud:OpenStack:Stein/Ubuntu_22.01.6'
+
+  - name: Installing OpenStack
+    pip:
+      name: python-openstackclient
+

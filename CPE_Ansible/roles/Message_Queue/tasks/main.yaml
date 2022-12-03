@@ -1,0 +1,11 @@
+  - name: Installing rabbitmq-server
+    apt:
+      name: rabbitmq-server
+      state: latest
+
+  - name: Starting rabbitmq-server service
+    service:
+      name: rabbitmq-server.service
+      state: started
+      enabled: true
+

@@ -1,0 +1,59 @@
+  - name: Creating etcd User
+    group:
+      name: etcd
+      system: true
+      state: present
+
+  - name: Creating a User for etcd
+    user:
+      name: etcd
+      home: "/var/lib/etcd"
+      shell: /bin/false
+      group: etcd
+      system: true
+
+  - name: Creating Directory 1 for etcd
+    file:
+      path: /etc/etcd
+      state: directory
+      owner: etcd
+      group: etcd
+
+  - name: Creating Directory 2 for etcd
+    file:
+      path: /var/lib/etcd
+      state: directory
+      owner: etcd
+      group: etcd
+
+  - name: Installing etcd tar.gz file
+    shell: |
+      ETCD_VER=v3.2.7
+      rm -rf /tmp/etcd && mkdir -p /tmp/etcd
+      curl -L https://github.com/coreos/etcd/releases/download/${ETCD_VER}/etcd-${ETCD_VER}-linux-amd64.tar.gz -o /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
+      tar xzvf /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz -C /tmp/etcd --strip-components=1
+      cp /tmp/etcd/etcd /usr/bin/etcd
+      cp /tmp/etcd/etcdctl /usr/bin/etcdctl
+
+  - name: Creating a config file for etcd
+    copy:
+      src: etcd.conf.yml
+      dest: /etc/etcd/etcd.conf.yml
+      owner: root
+      group: root
+      mode: 644
+
+  - name: Copying the etcd service file
+    copy:
+      src: etcd.service
+      dest: /usr/lib/systemd/system/etcd.service
+      owner: root
+      group: root
+      mode: 644
+
+  - name: Starting/Enabling etcd service
+    service:
+      name: etcd
+      state: started
+      enabled: true
+

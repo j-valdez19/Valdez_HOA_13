@@ -1,0 +1,19 @@
+  - name: Installing Chrony
+    apt:
+      name: chrony
+      state: latest
+
+  - name: Starting Chrony Service
+    service:
+      name: chronyd.service
+      state: started
+      enabled: true
+
+  - name: Editing chrony.conf file
+    copy:
+      src: chrony.conf
+      dest: /etc/chrony.conf
+      owner: root
+      group: root
+      mode: 664
+

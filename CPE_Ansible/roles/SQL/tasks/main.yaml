@@ -1,0 +1,19 @@
+  - name: Installing Mariadb
+    apt:
+      name:
+        - mariadb-server
+
+  - name: Copying openstack.cnf file
+    copy:
+      src: openstack.cnf
+      dest: /etc/my.cnf.d/openstack.cnf
+      owner: root
+      group: root
+      mode: 644
+
+  - name: Starting/Enabling Mariadb service
+    service:
+      name: mysql
+      state: started
+      enabled: true
+

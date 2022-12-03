@@ -1,0 +1,21 @@
+  - name: Installing Memcached
+    apt:
+      name:
+        - memcached
+        - python-python-memcached
+      state: latest
+
+  - name: Editing memcached.conf file
+    copy:
+      src: memcached
+      dest: /etc/sysconfig/memcached
+      owner: root
+      group: root
+      mode: 644
+
+  - name: Starting memcached service
+    service:
+      name: memcached
+      state: started
+      enabled: true
+
